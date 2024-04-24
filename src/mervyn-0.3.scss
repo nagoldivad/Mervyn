@@ -125,10 +125,11 @@ blockquote p {
 
 /* Paragraph style */
 
-/* These two styles emulate a printed page */
+/* The following two p styles try to emulate a printed page */
 p {
 	margin-top: 0;
 	margin-bottom: 0;
+    text-wrap: pretty; /* try to avoid orphans -- see: https://frontendmasters.com/blog/what-you-need-to-know-about-modern-css-spring-2024-edition/#text-wrapping */
 }
 
 p + p {
