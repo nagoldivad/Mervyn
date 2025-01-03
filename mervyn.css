@@ -1,0 +1,254 @@
+/* ********************************************
+ *                                            *
+ *                 Mervyn.css                 *
+ *                                            *
+ *      A CSS framework for reading text      *
+ *                                            *
+ * ********************************************
+ *
+ * Version: 1.0.0
+ * Last Updated: January 2024
+ * 
+ * Author: David M. Logan
+ * Email: nagoldivad@gmail.com
+ *
+ * License: WTFPL (http://www.wtfpl.net/)
+ *
+ * Goals:
+ * 1. Follow best practices for typography:
+ *    https://practicaltypography.com/typography-in-ten-minutes.html
+ * 2. Remain lightweight for easy embedding.
+ *
+ */
+
+
+/* ========================================
+ *                Table of Contents
+ * ========================================
+ *	1. Variables
+ *  2. Base styles
+ *  3. Links
+ *  4. Miscellany
+ *  5. Media queries
+ *
+ */
+
+
+/* ========================================
+ *                Variables
+ * ========================================
+ */
+
+:root {
+  /* colors */
+  --color-bg: #ffffff;
+  --color-fg: #444444;
+  --color-selection: #b3d4fc;
+  --color-link: #FF4136;
+  --color-link-hover: #b40a01;
+  --color-hr: #cccccc;
+
+  /* font stack */
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* font sizes */
+  --font-size-base: 1.125rem;
+  --font-size-medium: 1.1875rem;
+  --font-size-large: 1.375rem;
+  --font-size-full: 1.5rem;
+
+  /* spacing */
+  --col-width: 40.625rem; /* 650px ÷ 16 = 40.625rem */
+  --col-width-large: 60rem; /* e.g., for desktop users */
+  --line-height: 1.5;
+
+  /* other vars */
+  --hyphenation: auto; /* perhaps switch to 'manual'? */
+}
+
+
+/* ========================================
+ *                Base styles
+ * ========================================
+ */
+
+ html {
+	-webkit-text-size-adjust: 100%; /* copied from normalize 8.0 */
+}
+
+ body {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+	font-family: var(--font-family-sans-serif);
+	font-size: var(--font-size-base);
+	max-width: var(--col-width);
+	margin: 1.25rem auto; /* 20px, TODO make logical spacing */
+  padding: 0 0.625rem; /* 10px TODO make logical spacing */
+	line-height: var(--line-height);
+	text-align: justify;
+	
+	/* The following is from:
+	https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+	*/
+	/* These are technically the same, but use both */
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+  
+	-ms-word-break: break-all;
+	/* This is the dangerous one in WebKit, as it breaks things wherever */
+	/*word-break: break-all;*/
+	/* Instead use this non-standard one: */
+	word-break: break-word;
+  
+	/* Adds a hyphen where the word breaks, if supported (No Blink) */
+	-ms-hyphens: var(--hyphenation);
+	-moz-hyphens: var(--hyphenation);
+	-webkit-hyphens: var(--hyphenation);
+	hyphens: var(--hyphenation);
+}
+
+/* Headings */
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.75rem;
+}
+h4 {
+  font-size: 1.5rem
+}
+h5 {
+  font-size: 1.25rem;
+}
+h1, h2, h3, h4, h5 {
+	line-height: 1.25;
+	margin: 1em 0 0.67em 0;
+}
+
+/* images
+	make images responsive */
+img {
+	max-width: 100%;
+	height: auto;
+}
+/* ensure alt text on images isn't styled (e.g., italicized) when images fail to load: */
+img[alt]:not([src]) {
+  font-style: normal;
+}
+
+/* Hanging punctuation in Blockquotes
+see: https://betterwebtype.com/rhythm-in-web-typography */
+blockquote p {
+	hanging-punctuation: first;
+}
+
+/* Paragraph style */
+
+/* The following two p styles try to emulate a printed page */
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+  text-wrap: pretty; /* try to avoid orphans -- see: https://frontendmasters.com/blog/what-you-need-to-know-about-modern-css-spring-2024-edition/#text-wrapping */
+  overflow-wrap: break-word /* fallback for text-wrap -- for Safari and Firefox -- see: https://caniuse.com/mdn-css_properties_text-wrap_pretty */
+}
+
+p + p {
+	text-indent: 1em;
+}
+
+
+/* ========================================
+ *                Links
+ * ========================================
+ */
+
+a {
+	color: var(--color-link);
+	text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+a:hover {
+	color: var(--color-link-hover);
+	text-decoration: underline;
+}
+
+
+
+/* ========================================
+ *                Miscellany
+ * ========================================
+ */
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Vendor-prefixed and regular ::selection selectors cannot be combined:
+ * https://stackoverflow.com/a/16982510/7133471
+ *
+ * Customize the background color to match your design.
+ */
+::selection {
+    background: var(--color-selection);
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ * (taken from HTML5 Boilerplate -- https://html5boilerplate.com/)
+ */
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid var(--color-hr);
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+/* ========================================
+ *                Media queries
+ * ========================================
+ */
+
+
+/* breakpoints are same as Bootstrap 4.0 */
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	body {
+		font-size: var(--font-size-medium);
+		padding: 0;
+	}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+	body {
+		font-size: var(--font-size-large);
+	}
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+	body {
+		font-size: var(--font-size-full);
+    max-width: var(--col-width-large);
+	}
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #121212;
+    --color-fg: #e0e0e0;
+    --color-link: #bb86fc;
+    --color-link-hover: #3700b3;
+    --color-hr: #333333;
+  }
+}
